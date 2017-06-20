@@ -1,0 +1,26 @@
+{
+  "name": "projectv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tangerwei/vueProject.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tangerwei/vueProject/issues"
+  },
+  "homepage": "https://github.com/tangerwei/vueProject#readme",
+  "dependencies": {
+    "vue": "^2.3.4"
+  },
+  "devDependencies": {
+    "webpack": "^3.0.0"
+  }
+}
