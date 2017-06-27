@@ -9,10 +9,6 @@ const RouterMap = [
     {
         path:"/",
         redirect: '/login'
-    },
-    {
-        path:"/login",
-        component:login
     },{
         path:"/error404",
         component:error404

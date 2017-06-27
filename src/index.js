@@ -8,7 +8,6 @@ import store from './Store'
 // use component
 Vue.use(ElementUI);
 
-
 new Vue({
     el: "#app",
     router: routes,

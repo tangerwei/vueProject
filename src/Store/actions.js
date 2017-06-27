@@ -1,11 +1,22 @@
+import { Loading } from 'element-ui';
+let loadingState = "";
 const actions = {
-    loginUser(context,{userId}){
-        console.log("loginUser");
-        console.log(userId);
+    userlogin(context,{name,password}){
         context.commit({
-            type:'updateUserId',
-            userId
+            type:'userlogin',
+            name,
+            password
         })
+    },
+    openLoading(){
+        loadingState = Loading.service({
+            fullscreen:true,
+            lock:true,
+            text:"登录中..."
+        });
+    },
+    closeLoading(){
+        loadingState.close();
     }
 };
 export default actions;

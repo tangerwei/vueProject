@@ -1,58 +1,69 @@
 <template>
 <div id="app">
 <!-- 路由出口 -->
-<el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-  <el-menu-item index="1" @click="dialogVisible = true">login</el-menu-item>
-  <el-submenu index="2">
-    <template slot="title">我的工作台</template>
-    <el-menu-item index="2-1">选项1</el-menu-item>
-    <el-menu-item index="2-2">选项2</el-menu-item>
-    <el-menu-item index="2-3">选项3</el-menu-item>
-  </el-submenu>
-  <el-menu-item index="3"><router-link :to="{path:'/error404',query: { userid: id }}">404</router-link></el-menu-item>
-</el-menu>
 <div class="line"></div>
-<el-dialog
-  title="提示"
-  :visible.sync="dialogVisible"
-  size="tiny"
-  :before-close="handleClose">
-  <span>{{$store.state.userId}}</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-</el-dialog>
+<el-col :span="2">
+    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+    <el-submenu v-for="item in items">
+      <template v-if = "item.title" slot="title"><i class="el-icon-menu"></i>{{item.title}}</template>
+      <el-menu-item-group v-if="item.childs.length>0">
+        <el-menu-item v-for="itemChild in item.childs">
+        {{itemChild}}
+        </el-menu-item>
+      </el-menu-item-group>
+    </el-submenu>
+      <!--<el-submenu index="1">
+        <template slot="title"><i class="el-icon-menu"></i>导航一</template>
+        <el-menu-item-group>
+          <template slot="title">分组一</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>-->
+      <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
+      <el-menu-item v-if="!isLogined" index="3" @click="openLogin()"><i class="el-icon-setting"></i>登录</el-menu-item>
+      <el-menu-item v-if="isLogined" index="3"><i class="el-icon-setting"></i>用户信息</el-menu-item>
+    </el-menu>
+  </el-col>
+  <el-col :span="32">
+  <router-view></router-view>
+  </el-col>
+<loginForm :show-login-form="showLoginForm"></loginForm>
 <!-- 路由匹配到的组件将渲染在这里 -->
-<router-view></router-view>
 </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import loginForm from '../Components/login.vue'
   export default {
+    components:{
+      'loginForm':loginForm
+      },
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
-        id:10086,
-        userId:"",
-        loginUserId:this.$store.state.userId,
-        dialogVisible: false
+        showLoginForm:false,
+        items:[{title:"第一组",childs:["选项1","选项2"]},{title:"第二组",childs:["选项1","选项2"]}]
       };
     },
     created(){
-      this.loginUserId = this.$store.state.userId;
+      // this.isLogined = true;
+    },
+    computed:{
+      isLogined(){
+        console.log(this.$store.state.isLogined);
+        return this.$store.state.isLogined;
+      }
     },
     methods: {
-      handleSelect(key, keyPath) {
-        //console.log(key, keyPath);
-        // console.log(this.$store.state.userId);
-        // console.log(this.loginUserId);
-      },
-      login(){
-        this.$store.dispatch({
-          type:'loginUser',
-          userId:this.userId
-        });
+      openLogin(){
+        this.showLoginForm=!this.showLoginForm;
       }
     }
   }

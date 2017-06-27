@@ -1,8 +1,9 @@
 const mutations = {
-    updateUserId(state,{userId}){
-        console.log("updateUserId");
-        console.log(userId);
-        state.userId = userId;
+    userlogin(state,{name,password}){
+        state.name = name;
+        state.password = password;
+        //
+        state.isLogined = true;
     }
 }
 export default mutations;
