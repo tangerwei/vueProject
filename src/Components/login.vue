@@ -1,63 +1,57 @@
 <template>
-<el-dialog class="self-login-width" title="登录" :visible.sync="show">
-  <el-form>
-  <el-form-item label="用户名">
-    <el-input v-model="formLabelAlign.name"></el-input>
-  </el-form-item>
-  <el-form-item label="密码">
-    <el-input type="password" v-model="formLabelAlign.password"></el-input>
-  </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="show = false">取 消</el-button>
-    <el-button type="primary" @click="login()">确 定</el-button>
-  </div>
-</el-dialog>
+    <el-form :model="user" ref="loginform" label-position="left" label-width="100px" class="demo-dynamic self-login-form">
+        <h3 class="title">系统登录</h3>
+        <el-form-item label="账号" :rules="[{required:true,message:'账号不能为空'}]">
+            <el-input v-model="user.account" placeholder="请输入账号或者邮箱" type="text"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :rules="[{required:true,message:'密码不能为空'}]">
+            <el-input v-model="user.password" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="">
+            <el-checkbox :model="checked" checked class="remember">记住密码</el-checkbox>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" style="width:100%" @click="login()">登录</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 <script>
-    export default {
-        name:'loginForm',
-        props:['showLoginForm'],
-        data(){
-            return {
-                show:false,
-                formLabelAlign:{
-                    name:'',
-                    password:''
-                }
+export default {
+    data() {
+        return {
+            user: {
+                account: 'admin',
+                password: '111111'
             }
-        },
-        watch:{
-            showLoginForm:function(val){
-                this.empty();
-                this.show = true;
-            }
-        },
-        methods:{
-            empty(){
-                this.formLabelAlign.name = '';
-                this.formLabelAlign.password = '';
-            },
-            login(){
-                //open loading
-                this.$store.dispatch("openLoading");
-                //login
-                this.$store.dispatch({
-                    type:"userlogin",
-                    name:this.formLabelAlign.name,
-                    password:this.formLabelAlign.password
-                });
-                //close loading
-               setTimeout(() => {
-                   this.$store.dispatch("closeLoading");
-                   this.show = false
-                   }, 3000);
-                }
+        }
+    },
+    methods: {
+        login() {
+            this.$store.dispatch({
+                type: "module_user/login",
+                user: this.user
+            });
+            this.$router.push("/management");
         }
     }
+}
 </script>
-<style>
-    .self-login-width .el-dialog--small{
-        width:300px;
+<style lang="scss" scoped>
+.self-login-form {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin: 180px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+    .title {
+      margin: 0px auto 40px auto;
+      text-align: center;
+      color: #505458;
     }
+}
 </style>

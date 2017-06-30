@@ -1,18 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-//import getters from './getters'
+
+import module_sideBar from './modules/sidebar'
+import module_user from './modules/user'
 //use state manage tool
 Vue.use(Vuex);
 
-var state = {
-    userId:'9527',
-    showLoginForm:false,
-    isLogined:false
+const modules = {
+    module_sideBar,
+    module_user
 }
+
 export default new Vuex.Store({
-    state,
-    actions,
-    mutations
+    modules
 })

@@ -16,3 +16,13 @@ http://mint-ui.github.io/docs/#/zh-cn2/tabbar
 
 pc
 http://element.eleme.io/#/zh-CN/component/installation
+
+
+modules 下
+//get moduleA's state
+this.$store.state.module_A
+//调用moduleA的action(必须设置namespaced:true)
+this.$store.dispatch({
+    type:"moduleA/login"
+})
+//所以并不允许action重名
