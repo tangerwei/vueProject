@@ -8,7 +8,7 @@ import index from '../Components/index.vue'
 
 import error404 from '../Components/404.vue'
 
-const RouterMap = [
+var routes = [
     {
         path: "/",
         redirect: '/login'
@@ -18,19 +18,52 @@ const RouterMap = [
     }, {
         path: "/error404",
         component: error404
-    },, {
-        path: "/management",
-        redirect:'/management/user'
-    }, {
-        path: "/management/:id",
-        component: index
     }
 ]
 
+import sidebar from '../Components/SiderBar/siderbar.vue'
+
+import userMessage from '../Components/User/userMessage.vue'
+
+import userAuthorization from '../Components/User/userAuthorization.vue'
+//create management router map
+var initManagement = {
+    path: "/management",
+    component: index,
+    children: [{
+        path: "default",
+        redirect: "user/message"
+    }]
+}
+// defined management map
+var managementMapList = [{
+    path: "user/message",
+    components: {
+        sidebar: sidebar,
+        content: userMessage
+    }
+},{
+    path: "user/authorization",
+    components: {
+        sidebar: sidebar,
+        content: userAuthorization
+    }
+}]
+
+function createRouterMap(ManagementMap) {
+    if (Array.isArray(ManagementMap)) {
+        ManagementMap.map(function(v){
+            initManagement.children.push(v);
+        });
+    }
+    return initManagement;
+}
+routes.push(createRouterMap(managementMapList));
+// console.log(routes);
 Vue.use(Router);
 
 var router = new Router({
-    routes: RouterMap
+    routes
 })
 router.beforeEach((to, from, next) => {
     if (to.path == '/login') {

@@ -2,14 +2,15 @@
     <el-row>
         <el-col :span="24" class="header">
             <el-col :span="siderBarwith" class="logo">
-                <img :src="collapsed?'../static/login.jpg':'simple-logo'"></img>
             </el-col>
             <el-col :span="24 - siderBarwith"></el-col>
         </el-col>
         <el-col :span="24" class="body">
-            <sidebar :span="siderBarwith"></sidebar>
+            <el-col :span="siderBarwith">
+                <router-view name="sidebar"></router-view>
+            </el-col>
             <el-col :span="24 - siderBarwith">
-                
+                <router-view name="content"></router-view>
             </el-col>
         </el-col>
     </el-row>
@@ -19,7 +20,7 @@ import sidebar from "./SiderBar/siderbar.vue"
 export default {
     data() {
         return {
-            siderBarwith: 5
+            siderBarwith: 4
         }
     },
     components: {
@@ -32,7 +33,7 @@ export default {
     },
     watch:{
         collapsed(val){
-            this.siderBarwith = val ? 5 : 2;
+            this.siderBarwith = val ? 4 : 2;
         }
     }
 }

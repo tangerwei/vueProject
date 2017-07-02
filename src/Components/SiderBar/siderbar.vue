@@ -1,12 +1,12 @@
 <template>
-    <el-col :span="span">
-        <el-menu class="el-menu-vertical-demo">
+    <el-col :span="24">
+        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo">
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-message"></i>用户</template>
                 <el-menu-item-group>
                     <template slot="title">个人信息</template>
-                    <el-menu-item index="1-1"><router-link to="/management/user/message">账号信息</router-link></el-menu-item>
-                    <el-menu-item index="1-2"><router-link to="/management/user/authorization">授权</router-link></el-menu-item>
+                    <router-link to="/management/user/message"><el-menu-item index="1-1">账号信息</el-menu-item></router-link>
+                    <router-link to="/management/user/authorization"><el-menu-item index="1-2">授权</el-menu-item></router-link>
                 </el-menu-item-group>
             </el-submenu>
             <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
@@ -17,10 +17,28 @@
 <script>
 export default {
     name: "sidebar",
-    props: ["span"],
     data() {
         return {
 
+        }
+    },
+    created(){
+        const MenuMap = [{
+            key:"1-1",
+            value:"/management/user/message"
+        },{
+            key:"1-2",
+            value:"/management/user/authorization"
+        }];
+        const currentRouter = this.$route.path;
+        console.log(currentRouter);
+        //init active menu
+        //this.activeMenu = "1-1";
+        for(var i = 0;i<MenuMap.length;i++){
+            if(MenuMap[i].value == currentRouter){
+                this.activeMenu = MenuMap[i].key;
+                break;
+            };
         }
     },
     methods: {
@@ -32,3 +50,8 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+a{
+    text-decoration: none;
+}
+</style>

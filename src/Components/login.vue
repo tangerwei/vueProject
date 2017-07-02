@@ -31,7 +31,7 @@ export default {
                 type: "module_user/login",
                 user: this.user
             });
-            this.$router.push("/management");
+            this.$router.push("/management/default");
         }
     }
 }
