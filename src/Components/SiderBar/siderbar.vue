@@ -1,6 +1,6 @@
 <template>
     <el-col :span="24">
-        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo">
+        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" theme="dark">
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-message"></i>用户</template>
                 <el-menu-item-group>

@@ -6,7 +6,11 @@
                     <img :src="logosrc" alt="logo">
                 </div>
             </el-col>
-            <el-col :span="24 - siderBarwith"></el-col>
+            <el-col :span="24 - siderBarwith">
+                <div class="usermessage">
+                    
+                </div>
+            </el-col>
         </el-col>
         <el-col :span="24" class="body">
             <el-col :span="siderBarwith">
@@ -45,6 +49,10 @@ export default {
 <style lang="scss" scoped>
 .header{
     height: 60px;
+    background-color:#3090c0;
+    .logo{
+    height: 60px;
+    }
 }
 .self-logo-container{
     height:100%;
