@@ -26,6 +26,10 @@ import sidebar from '../Components/SiderBar/siderbar.vue'
 import userMessage from '../Components/User/userMessage.vue'
 
 import userAuthorization from '../Components/User/userAuthorization.vue'
+
+import calendar from '../Components/Calendar/calendar.vue'
+
+import setting from '../Components/Setting/setting.vue'
 //create management router map
 var initManagement = {
     path: "/management",
@@ -47,6 +51,18 @@ var managementMapList = [{
     components: {
         sidebar: sidebar,
         content: userAuthorization
+    }
+},{
+    path:"calendar",
+    components: {
+        sidebar: sidebar,
+        content: calendar
+    }
+},{
+    path:"setting",
+    components: {
+        sidebar: sidebar,
+        content: setting
     }
 }]
 
