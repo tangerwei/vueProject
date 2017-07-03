@@ -26,3 +26,5 @@ this.$store.dispatch({
     type:"moduleA/login"
 })
 //所以并不允许action重名
+
+展示地址[https://tangerwei.github.io/vueProject/dist/index.html#/login]
